@@ -1,4 +1,4 @@
-module kahu-manager
+module github.com/soda-cdm/kahu-manager
 
 go 1.19
 
