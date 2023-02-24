@@ -88,8 +88,7 @@ clean:
 	@echo "$$CLEAN_HELP_INFO"
 else
 clean:
-	@build/make-clean.sh && \
-$(MAKE) -f Makefile.generate_proto clean
+	@build/make-clean.sh
 endif
 
 define RELEASE_IMAGES_HELP_INFO
@@ -105,21 +104,6 @@ release-images:
 else
 release-images: all
 	@build/release-images.sh
-endif
-
-define GENERATED_FILES_HELP_INFO
-# Produce auto-generated files needed for the build.
-#
-# Example:
-#   make generated_files
-endef
-.PHONY: generated_files
-ifeq ($(PRINT_HELP),y)
-generated_files:
-	@echo "$$GENERATED_FILES_HELP_INFO"
-else
-generated_files: verify
-	$(MAKE) -f Makefile.generate_proto $@
 endif
 
 define VERIFY_HELP_INFO
