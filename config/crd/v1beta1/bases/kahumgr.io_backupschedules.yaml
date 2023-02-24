@@ -54,6 +54,7 @@ spec:
                   as manual trigger otherwise scheduled based backup will be taken
                 type: string
               concurrentPolicy:
+                default: Forbid
                 description: 'Specifies how to treat concurrent executions of a Backup.
                   Valid values are: - "Allow": allows Backups to run concurrently;
                   - "Forbid"(default): forbids concurrent runs, skipping next run
@@ -70,15 +71,10 @@ spec:
                 minimum: 1
                 type: integer
               reclaimPolicy:
-                default: retain
+                default: Retain
                 description: ReclaimPolicy tells about reclamation of the backup.
                   It can be either delete or retain
-                properties:
-                  reclaimPolicyDelete:
-                    type: string
-                  reclaimPolicyRetain:
-                    type: string
-                type: object
+                type: string
               startingDeadlineSeconds:
                 description: Optional deadline in seconds for starting the Backup
                   if it  misses scheduled time for any reason.

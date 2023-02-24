@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright 2022 The SODA Authors.
+# Copyright 2023 The SODA Authors.
 # Copyright 2017 the Velero contributors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");

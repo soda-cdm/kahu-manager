@@ -42,7 +42,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   labels:
-    provisioner: kahu
+    provisioner: kahu-manager
   name: kahu-manager-clusterrole
 rules:
   - apiGroups: ["kahumgr.io"]

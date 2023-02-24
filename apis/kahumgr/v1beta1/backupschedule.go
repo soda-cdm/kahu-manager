@@ -40,20 +40,20 @@ const (
 )
 
 // ReclaimPolicy tells about reclamation of the backup. It can be either delete or retain
-type BackupScheduleReclaimPolicyType struct {
-	// +optional
-	ReclaimPolicyDelete string `json:"reclaimPolicyDelete,omitempty"`
+type BackupScheduleReclaimPolicyType string
 
-	// +optional
-	ReclaimPolicyRetain string `json:"reclaimPolicyRetain,omitempty"`
-}
+const (
+	ReclaimPolicyDelete BackupScheduleReclaimPolicyType = "Delete"
+
+	ReclaimPolicyRetain BackupScheduleReclaimPolicyType = "Retain"
+)
 
 type BackupScheduleSpec struct {
 	// optional, name of the SchedulePolicy CR
 	// if empty considered as manual trigger otherwise scheduled based backup will be taken
 	BackupPolicyName string `json:"backupPolicyName"`
 	// ReclaimPolicy tells about reclamation of the backup. It can be either delete or retain
-	// +kubebuilder:default= retain
+	// +kubebuilder:default= Retain
 	// +kubebuilder:validation:Optional
 	ReclaimPolicy BackupScheduleReclaimPolicyType `json:"reclaimPolicy,omitempty"`
 	// Enable tells whether  Scheduled Backup should be started or stopped
@@ -72,6 +72,7 @@ type BackupScheduleSpec struct {
 	StartingDeadlineSeconds *int64 `json:"startingDeadlineSeconds,omitempty"`
 	// Specifies how to treat concurrent executions of a Backup.
 	// Valid values are:
+	// +kubebuilder:default= Forbid
 	// - "Allow": allows Backups to run concurrently;
 	// - "Forbid"(default): forbids concurrent runs, skipping next run if previous run hasn't finished yet.
 	// +optional

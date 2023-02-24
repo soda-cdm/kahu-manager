@@ -92,11 +92,7 @@ func (d *DailyPolicy) CheckTimeFormat() error {
 
 // validates the DailyPolicy
 func (d *DailyPolicy) Validate() error {
-	err := d.CheckTimeFormat()
-	if err != nil {
-		return err
-	}
-	return nil
+	return d.CheckTimeFormat()
 }
 
 // Weekly Policy contains the days and time  in a week when the action should be triggered
