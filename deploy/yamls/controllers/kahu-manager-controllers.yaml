@@ -51,16 +51,10 @@ rules:
   - apiGroups: ["kahu.io"]
     resources: ["backups", "backups/status"]
     verbs: ["get", "list", "watch", "patch", "update", "delete"]
-  - apiGroups: ["*"]
-    resources: ["*"]
-    verbs: ["create", "get", "list", "delete", "watch"]
   - apiGroups: ["coordination.k8s.io"]
     resourceNames: ["kahu-manager"]
     resources: ["leases"]
     verbs: ["get", "list", "watch", "create", "update", "delete"]
-  - apiGroups: [ "rbac.authorization.k8s.io" ]
-    resources: [ "clusterroles", "roles" ]
-    verbs: [ "bind", "escalate" ]
 ---
 apiVersion: v1
 kind: ServiceAccount

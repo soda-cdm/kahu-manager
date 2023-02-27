@@ -135,8 +135,11 @@ type BackupSchedule struct {
 
 // BackupScheduleList contains a List of BackupSchedule
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+
 type BackupScheduleList struct {
-	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Items             []BackupSchedule `json:"items"`
+	metav1.TypeMeta `json:",inline"`
+	// +optional
+	metav1.ListMeta `json:"metadata,omitempty"`
+	// +optional
+	Items []BackupSchedule `json:"items"`
 }

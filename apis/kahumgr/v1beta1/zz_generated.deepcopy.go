@@ -57,7 +57,7 @@ func (in *BackupSchedule) DeepCopyObject() runtime.Object {
 func (in *BackupScheduleList) DeepCopyInto(out *BackupScheduleList) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
-	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
+	in.ListMeta.DeepCopyInto(&out.ListMeta)
 	if in.Items != nil {
 		in, out := &in.Items, &out.Items
 		*out = make([]BackupSchedule, len(*in))
@@ -217,7 +217,7 @@ func (in *SchedulePolicy) DeepCopyObject() runtime.Object {
 func (in *SchedulePolicyList) DeepCopyInto(out *SchedulePolicyList) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
-	in.ObjectMeta.DeepCopyInto(&out.ObjectMeta)
+	in.ListMeta.DeepCopyInto(&out.ListMeta)
 	if in.Items != nil {
 		in, out := &in.Items, &out.Items
 		*out = make([]SchedulePolicy, len(*in))
