@@ -1,0 +1,134 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.8.0
+  creationTimestamp: null
+  name: schedulepolicies.kahumgr.io
+spec:
+  group: kahumgr.io
+  names:
+    kind: SchedulePolicy
+    listKind: SchedulePolicyList
+    plural: schedulepolicies
+    singular: schedulepolicy
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1beta1
+    schema:
+      openAPIV3Schema:
+        description: SchedulePolicy is the Schema for the policy API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: SchedulePolicyspec
+            properties:
+              daily:
+                description: Daily Policy contains the time in the day when the action
+                  should be triggered the cron example  20 16 * * *  (so every day
+                  at 16:20 Hrs triggers)
+                properties:
+                  maxCopies:
+                    default: 15
+                    maximum: 256
+                    minimum: 1
+                    type: integer
+                  time:
+                    description: Time when the policy should be triggered time eg
+                      12:15
+                    type: string
+                required:
+                - time
+                type: object
+              hourly:
+                description: for every number of minutes after every hour the schedule
+                  will be triggered the cron example  25 * * * * (so every hour after
+                  25 minutes triggers)
+                properties:
+                  maxCopies:
+                    default: 24
+                    maximum: 256
+                    minimum: 1
+                    type: integer
+                  minutes:
+                    description: Minutes when the policy should be triggered
+                    maximum: 59
+                    minimum: 0
+                    type: integer
+                required:
+                - minutes
+                type: object
+              monthly:
+                description: Monthly Policy contains the dates and time  in a month
+                  when the action should be triggered the cron example  25 11 (1,5,8,11,18)
+                  * ? (so on given dates every month at 11:25 Hrs triggers)
+                properties:
+                  dates:
+                    description: Dates of the month when action should be triggered.
+                      If given date does not exist in a month then rollover to the
+                      next date of month. Example 31 is specified then in Feb it will
+                      trigger on either 1st or 2nd March based on leap year or not.
+                    items:
+                      type: integer
+                    type: array
+                  maxCopies:
+                    default: 12
+                    maximum: 256
+                    minimum: 1
+                    type: integer
+                  time:
+                    description: eg 12:15
+                    type: string
+                required:
+                - dates
+                - time
+                type: object
+              weekly:
+                description: Weekly Policy contains the days and time  in a week when
+                  the action should be triggered the cron example  25 11 ? * (1,2)
+                  (so on Mon,Tues at 11:25 Hrs triggers)
+                properties:
+                  days:
+                    description: Days of the week when the policy should be triggered.
+                      Expected format is  specified in  DaysType as above
+                    items:
+                      type: string
+                    type: array
+                  maxCopies:
+                    default: 4
+                    maximum: 256
+                    minimum: 1
+                    type: integer
+                  time:
+                    type: string
+                required:
+                - days
+                - time
+                type: object
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
